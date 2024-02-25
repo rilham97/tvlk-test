@@ -5,12 +5,13 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "mocha --loader ts-node/esm 'test/**/*.spec.js'"
+    "test": "mocha --bail"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "fs-extra": "^11.2.0",
     "selenium-webdriver": "^4.18.1"
   },
   "devDependencies": {
