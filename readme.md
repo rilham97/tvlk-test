@@ -16,21 +16,21 @@ This project also requires a Selenium WebDriver compatible browser driver. For C
 
 First, clone the repository to your local machine:
 
-git clone <repository-url>
+```git clone <repository-url>```
 
 Navigate to the project directory:
 
-cd path/to/project
+```cd path/to/project```
 
 Install the required Node.js packages:
 
-npm install
+```npm install```
 
 ### Running the Tests
 
 To run the automated tests, execute the following command in the terminal:
 
-npx mocha 'test/carRentalTest.js'
+```npx mocha 'test/carRentalTest.js'```
 
 This command will start the Mocha test runner and execute the tests defined in test/carRentalTest.js.
 
