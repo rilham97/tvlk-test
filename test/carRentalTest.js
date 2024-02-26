@@ -1,23 +1,24 @@
-import { Builder, By } from 'selenium-webdriver';
 import CarRentalPage from '../pageObjects/carRentalPage.js';
-import config from '../config.json' assert { type: 'json' };
 import { describe, it, before, after } from 'mocha';
-import fs from 'fs-extra';
 
+import { setupDriver, teardownDriver, baseAfterEach } from './BaseTest.js';
 
 
 describe('Car Rental Scenario', function() {
-    this.timeout(config.timeout);
     let driver;
     let carRentalPage;
 
     before(async function() {
-        await fs.emptyDir('output');
-        await fs.mkdirp('output');
-        driver = await new Builder().forBrowser('chrome').build();
-        await driver.manage().window().maximize();
+        driver = await setupDriver(this);
         carRentalPage = new CarRentalPage(driver);
-        await driver.get(config.baseUrl);
+    });
+
+    afterEach(async function() {
+        await baseAfterEach(driver, this);
+    });
+
+    after(async function() {
+        await teardownDriver(driver);
     });
 
     it('1. Select Cars Product', async function() {
@@ -108,15 +109,5 @@ describe('Car Rental Scenario', function() {
     it('20. Select payment method and proceed to payment', async function() {
         await carRentalPage.selectPaymentMethodAndProceed();
     });
-
-    afterEach(async function() {
-        const projectDir = process.cwd();
-        const screenshot = await driver.takeScreenshot();
-        const filePath = `${projectDir}/output/screenshot-${this.currentTest.title}.png`
-        fs.writeFileSync(filePath, screenshot, 'base64');
-    });
-
-    after(async function() {
-        await driver.quit();
-    });
 });
+
